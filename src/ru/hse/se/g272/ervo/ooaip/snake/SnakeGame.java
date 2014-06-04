@@ -1,10 +1,7 @@
 package ru.hse.se.g272.ervo.ooaip.snake;
 
-import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,7 +88,7 @@ public class SnakeGame extends JComponent {
             JOptionPane.showMessageDialog(this, "Управление стрелочками. "
                     + "Пауза - ESC");
         }
-        snakeAsList = new LinkedList<SnakeBlock>();
+        snakeAsList = new LinkedList<>();
         snakeAsList.add(new SnakeBlock(0, 0));
         snakeAsList.add(new SnakeBlock(0, SnakeBlock.SIZE));
         setScore(0);
@@ -268,13 +265,14 @@ public class SnakeGame extends JComponent {
      * Проверяет, не откусила ли змейка кусок самой себя.
      */
     private void checkSnake() {
-        for (SnakeBlock snakeBlock: getSnakeAsList()) {
-            if (snakeBlock != getHead()) {
-                if (canEat(snakeBlock)) {
-                    die(false);
-                }
-            }
-        }
+        getSnakeAsList()
+                .stream()
+                .filter(snakeBlock -> snakeBlock != getHead())
+                .forEach(snakeBlock -> {
+                    if (canEat(snakeBlock)) {
+                        die(false);
+                    }
+                });
     }
 
     /**
@@ -308,14 +306,6 @@ public class SnakeGame extends JComponent {
     }
 
     /**
-     * Устанавливает верхнюю границу.
-     * @param upbound Верхняя граница
-     */
-    public final void setUpBound(final int upbound) {
-        this.upBound = upbound;
-    }
-
-    /**
      * Верхняя граница.
      * @return Верхняя граница.
      */
@@ -324,11 +314,11 @@ public class SnakeGame extends JComponent {
     }
 
     /**
-     * Устанавливает нижнюю границу.
-     * @param downbound Нижняя граница.
+     * Устанавливает верхнюю границу.
+     * @param upbound Верхняя граница
      */
-    public final void setDownBound(final int downbound) {
-        this.downBound = downbound;
+    public final void setUpBound(final int upbound) {
+        this.upBound = upbound;
     }
 
     /**
@@ -340,11 +330,11 @@ public class SnakeGame extends JComponent {
     }
 
     /**
-     * Устанавливает правую границу.
-     * @param rightbound Правая граница.
+     * Устанавливает нижнюю границу.
+     * @param downbound Нижняя граница.
      */
-    public final void setRightBound(final int rightbound) {
-        this.rightBound = rightbound;
+    public final void setDownBound(final int downbound) {
+        this.downBound = downbound;
     }
 
     /**
@@ -356,11 +346,11 @@ public class SnakeGame extends JComponent {
     }
 
     /**
-     * Устанавливает левую границу.
-     * @param leftbound Левая граница
+     * Устанавливает правую границу.
+     * @param rightbound Правая граница.
      */
-    public final void setLeftBound(final int leftbound) {
-        this.leftBound = leftbound;
+    public final void setRightBound(final int rightbound) {
+        this.rightBound = rightbound;
     }
 
     /**
@@ -369,6 +359,14 @@ public class SnakeGame extends JComponent {
      */
     public final int getLeftBound() {
         return leftBound;
+    }
+
+    /**
+     * Устанавливает левую границу.
+     * @param leftbound Левая граница
+     */
+    public final void setLeftBound(final int leftbound) {
+        this.leftBound = leftbound;
     }
 
     /**
@@ -412,19 +410,19 @@ public class SnakeGame extends JComponent {
     }
 
     /**
-     * Устанавливает необходимость роста.
-     * @param growthneeded Необходимость роста.
-     */
-    public final void setGrowthNeeded(final boolean growthneeded) {
-        this.growthNeeded = growthneeded;
-    }
-
-    /**
      * Необходмость роста.
      * @return Необходимость роста.
      */
     public final boolean isGrowthNeeded() {
         return growthNeeded;
+    }
+
+    /**
+     * Устанавливает необходимость роста.
+     * @param growthneeded Необходимость роста.
+     */
+    public final void setGrowthNeeded(final boolean growthneeded) {
+        this.growthNeeded = growthneeded;
     }
 
     /**

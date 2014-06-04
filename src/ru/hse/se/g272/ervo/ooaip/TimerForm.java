@@ -1,7 +1,6 @@
 package ru.hse.se.g272.ervo.ooaip;
 
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 
 /**
@@ -15,30 +14,22 @@ public class TimerForm extends Form {
      * Default delay for timer.
      */
     private static final int DEFAULT_DELAY = 200;
-
-    /**
-     * Is working.
-     */
-    private boolean actioning = false;
-
-    /**
-     * Special timer.
-     */
-    private Timer timer;
-
     /**
      * Delay of timer.
      */
     private int delay = DEFAULT_DELAY;
-
+    /**
+     * Is working.
+     */
+    private boolean actioning = false;
+    /**
+     * Special timer.
+     */
+    private Timer timer;
     /**
      * Action listener of timer.
      */
-    private ActionListener actionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(final ActionEvent actionEvent) {
-
-        }
+    private ActionListener actionListener = actionEvent -> {
     };
 
     /**

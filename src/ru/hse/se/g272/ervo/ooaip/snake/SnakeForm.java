@@ -4,8 +4,6 @@ import ru.hse.se.g272.ervo.ooaip.Form;
 import ru.hse.se.g272.ervo.ooaip.TimerForm;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -105,22 +103,19 @@ public class SnakeForm extends TimerForm {
         form.pack();
         form.setVisible(true);
         form.setDefaultSize(Form.HALFSCREEN);
-        form.setActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                if (form.getPauseQuery().isPauseNeeded()) {
-                    JOptionPane.showMessageDialog(null, "Пауза");
-                    form.getPauseQuery().setPauseNeeded(false);
-                }
-                form.getSnakeGame().moveSnake();
-                form.setTitle("Snake. Score: "
-                        + form.getSnakeGame().getScore());
-                form.getSnakeGame()
-                        .setDirection(form
-                                .getChangeDirectionQuery()
-                                .getDesiredDirection());
-                form.repaint();
+        form.setActionListener(actionEvent -> {
+            if (form.getPauseQuery().isPauseNeeded()) {
+                JOptionPane.showMessageDialog(null, "Пауза");
+                form.getPauseQuery().setPauseNeeded(false);
             }
+            form.getSnakeGame().moveSnake();
+            form.setTitle("Snake. Score: "
+                    + form.getSnakeGame().getScore());
+            form.getSnakeGame()
+                    .setDirection(form
+                            .getChangeDirectionQuery()
+                            .getDesiredDirection());
+            form.repaint();
         });
         form.setActioning(true);
     }
@@ -186,19 +181,19 @@ public class SnakeForm extends TimerForm {
         private boolean pauseNeeded;
 
         /**
-         * Устанавливает необходимость паузы.
-         * @param pauseneeded Необходимость паузы
-         */
-        public void setPauseNeeded(final boolean pauseneeded) {
-            this.pauseNeeded = pauseneeded;
-        }
-
-        /**
          * Необходимлсть паузы.
          * @return Необходимлсть паузы.
          */
         public boolean isPauseNeeded() {
             return pauseNeeded;
+        }
+
+        /**
+         * Устанавливает необходимость паузы.
+         * @param pauseneeded Необходимость паузы
+         */
+        public void setPauseNeeded(final boolean pauseneeded) {
+            this.pauseNeeded = pauseneeded;
         }
     }
 }
